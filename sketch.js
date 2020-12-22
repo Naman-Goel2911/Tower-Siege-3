@@ -10,6 +10,14 @@ var base1, base2;
 var polygon, rope;
 var ground;
 var score;
+var backgroundImg;
+
+function preload()
+{
+    var backgroundImg = loadImage("Day.jpg");
+
+    Getbg();
+}
 
 function setup()
 {
@@ -64,12 +72,15 @@ function setup()
 
 function draw()
 {
-    background(0);
-
+    if(backgroundImg)
+    {
+        background(backgroundImg);
+    }
+    
     Engine.update(engine);
 
     textSize(20);
-    fill(255);
+    fill(0);
     text("Drag the Polygon and destroy the Pyramids", 500, 50);
     text("Score: " + score, 1000, 50);
     textSize(15);
@@ -156,4 +167,25 @@ function keyPressed()
         rope.attach(polygon.body);
         Matter.Body.setPosition(polygon.body, {x: 200, y: 550});
     }
+}
+
+async function Getbg()
+{
+    var response = await fetch("http://worldtimeapi.org/api/timezone/Asia/Kolkata");
+    var responseJSON = await response.json();
+
+    var datetime = responseJSON.datetime;
+    var hour = datetime.slice(11, 13);
+
+    if(hour >= 06 && hour <= 18)
+    {
+        bg = "Day.jpg"
+    }
+
+    else
+    {
+        bg = "Night.jpg"
+    }
+
+    backgroundImg = loadImage(bg);
 }
