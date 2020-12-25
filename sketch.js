@@ -14,7 +14,7 @@ var backgroundImg;
 
 function preload()
 {
-    var backgroundImg = loadImage("Day.jpg");
+    backgroundImg = loadImage("Day.jpg");
 
     Getbg();
 }
